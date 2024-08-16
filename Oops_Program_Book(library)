@@ -1,0 +1,178 @@
+import java.util.Scanner;
+class book
+{
+  String title;
+    int price;
+    public void setData()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the title of book:-");
+        title= sc.nextLine();
+        
+        System.out.print("Enter the price of book:-");
+        price= sc.nextInt();
+        
+    }
+    public void display()
+    {
+        System.out.print("\n"+title+"\t\t"+price+"\n");
+    }
+    
+}
+public class Book {
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        book b[]=new book[10];
+        book []remove=new book[10];
+        int removeCount=0;
+        int i,j,k,temp,count=0,ch,n,key,find,del,Count=0;
+        do{
+            System.out.print("\n•Menu\n1)Accept\n2)Display\n3)Sorted\n4)Search"+
+            "\n5)Modifye details\n6)Delete\n7)Remove duplicate\n8)Display Remove book"+
+            "\n9)Book price less than(500)\n10)Book greter than(500)\n11)Exit..\nEnter your choice:-");
+            ch=sc.nextInt();
+            switch(ch)
+            {
+                case 1:
+                System.out.print("Enter the number of slot:-");
+                n=sc.nextInt();
+                book Temp[]=new book[n+count];
+                for(i=0;i<count;i++)
+                {
+                    Temp[i]=b[i];
+                }
+                b=Temp;
+                for(i=count;i<count+n;i++)
+                {
+                    b[i] = new book();
+                    b[i].setData();
+                    
+                }
+                count+=n;
+                break;//CASE 1 CLOSE
+                case 2:
+                System.out.print("Title\t\tPrice\n");
+                for(i=0;i<count;i++)
+                {
+                    b[i].display();
+                }
+                break;// CASE 2 CLOSE
+                case 3:
+                for(i=0;i<count-1;i++)
+                {
+                    for(j=0;j<count-i-1;j++)
+                    {
+                        if(b[j].price<b[j+1].price)
+                        {
+                            temp=b[j].price;
+                            b[j].price=b[j+1].price;
+                            b[j+1].price=temp;
+                        }
+                    }
+                }
+                System.out.print("Title\t\tPrice\n");
+                for(i=0;i<count;i++)
+                {
+                    b[i].display();
+                }
+                break;//case 3 close
+                case 4:
+                System.out.print("Enter the price which you want details:-");
+                key=sc.nextInt();
+                for(i=0;i<count;i++)
+                {
+                    if(key==b[i].price)
+                    {
+                        b[i].display();
+                    }
+                }
+                break;//case 4 close
+                case 5:
+                System.out.print("Enter which details you modifye");
+                find=sc.nextInt();
+                boolean found=false;
+                for(i=0;i<count;i++)
+                {
+                    if(find==b[i].price)
+                    {
+                        found=true;
+                        break;
+                    }
+                }
+                if(found)
+                {    b[i]=new book();
+                    b[i].setData();
+                    System.out.println("Book are modifiye Sucessfully!");
+                }
+                else
+                {
+                    System.out.print("Book are not found!");
+                }
+                break;//case 5 close
+                case 6:
+                System.out.print("Enter price which book you deleted:-");
+                del=sc.nextInt();
+                boolean Found=false;
+                for(i=0;i<count;i++)
+                {
+                    if(del==b[i].price)
+                    {
+                        Found=true;
+                        break;
+                    }
+                }
+                if(Found)
+                {
+                    for(k=i;k<count-1;k++)
+                    {
+                        b[k]=b[k+1];
+                        
+                    }count--;
+                }
+                break;//case 6 close
+                case 7:
+                for(i=0;i<count;i++)
+                {
+                for(j=0;j<count;j++)
+                {
+                    if(b[j].price==b[i].price && b[j].title!=b[i].title)
+                    {
+                        remove[removeCount++]=b[j];
+                        for(k=j;k<count-1;k++)
+                        {
+                            b[k]=b[k+1];
+                        }
+                        count--;
+                        j--;
+                        
+                    }
+                }
+                }
+                break;//case 7 close
+                case 8:
+                for(i=0;i<removeCount;i++)
+                {
+                    remove[i].display();
+                }
+                break;//case 8 close
+                case 9:
+                for(i=0;i<count;i++)
+                {
+                    if(b[i].price<=500)
+                    {
+                        b[i].display();
+                    }
+                    else
+                    {
+                        Count++;
+                    }
+                }
+                break;// case 9 close
+                case 10:
+                System.out.print(Count);
+            }
+            
+        }while(ch!=11);
+    }
+    
