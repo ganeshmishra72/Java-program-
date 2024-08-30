@@ -1,0 +1,51 @@
+import java.util.*;
+public class Practice{
+    public static void main(String[] args)
+    {
+        int a[]={1,0,0,1,3,5};
+        
+        int size=0;
+        int rem=0;
+       // int merge[]=new int[a.length];
+        for(int i=0;i<a.length;i++)
+        {
+            if(a[i]==0)
+            {
+                size+=1;
+            }
+            else
+            {
+            rem+=1;
+            }
+        }
+        int b[]=new int[size];
+        int c[]=new int[rem];
+        
+        int bindex=0,cindex=0;
+        for(int i=0;i<a.length-1;i++)
+        {
+            if(a[i]==0)
+            {
+                b[bindex++]=a[i];
+                
+            }
+            else
+            {
+            c[cindex++]=a[i];
+            }
+        }
+        int merger[]=new int[size+rem];
+        for(int i=0;i<rem;i++)
+        {
+            merger[i]=c[i];
+        }
+        for(int j=0;j<size;j++)
+        {
+            merger[j+rem]=b[j];
+        }
+        for(int e:merger)
+        {
+            System.out.print(e+" ");
+        }
+        
+    }
