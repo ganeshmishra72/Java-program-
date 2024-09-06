@@ -1,0 +1,290 @@
+import java.util.*;
+class Bank{
+     String bank="HDFC";
+     int ATM=12345678;
+}
+
+class BankAccount extends Bank{
+      final Scanner scan=new Scanner(System.in);
+      int account_no;
+      double total_amnount,deposite,withdrwal,transFer;
+      String account_holder;
+      String account_type;
+     String name;
+     static int  id=1000;
+      //Accpet data from user...
+      void setData()
+      {
+           System.out.print("Enter the Name of Member:");
+            name=scan.nextLine();
+           
+            System.out.print("Enter the Account Number:");
+            account_no=scan.nextInt();
+            System.out.print("Enter the Total Balance: ₹");
+            total_amnount=scan.nextDouble();
+            scan.nextLine();
+            System.out.print("Enter the type of Account:");
+            account_type=scan.nextLine();
+           System.out.print("Enter the email adders:");
+           account_holder=scan.nextLine();
+           //scan.nextLine();
+      }
+     String UID()
+     {
+          return "XX" +Integer.toString(id++);
+     }
+          
+      //get data which input for user....
+      void getData()
+      {
+            System.out.println("");
+        System.out.println("|\t***ACCOUNT INFORMATION***");
+        System.out.println("|");
+        System.out.println("|     Name of Holder    : "+name);
+        System.out.println("|     Account No        : "+UID());
+        System.out.println("|     Account Type      : "+account_type);
+        System.out.println("|     Available Balance : ₹"+total_amnount);
+        System.out.println("|     Address of Holder : "+account_holder);
+           System.out.println("|     Brance of Account  : "+bank);
+        System.out.println("|");
+        System.out.println("");
+      }
+     //deposite amnount for account
+     void deposite()
+     {
+        System.out.print("\nEnter deposite amount:-");
+          deposite=scan.nextDouble();
+          total_amnount+=deposite;
+          System.out.print("\nSucessfully deposit ₹"+deposite+"in account..");
+     }
+      //withdrwal amnout for account
+     void withdrwal()
+     {
+        System.out.print("\nEnter withdrwal amount:-");
+          withdrwal=scan.nextDouble();
+          if(withdrwal<=total_amnount)
+          {
+               total_amnount-=withdrwal;
+               System.out.print("\nSucessfully withdrwal....."+withdrwal+"in account");
+     
+          }
+          else
+          {
+               System.out.print("\nNo enough amount on this account....");
+          }
+          
+     }
+     void transFer(BankAccount destination,double transfer)
+     {
+          if(transfer<=total_amnount)
+          {
+               total_amnount-=transfer;
+               destination.total_amnount+=transfer;
+               System.out.print("\nSucessfully transfer....."+transfer+"in another account");
+          }
+          else
+          {
+               System.out.print("\nNo enough amount on source account....");
+          }
+               
+          
+     }
+     
+          
+      
+}
+
+public class Practice{
+      public static void main(String[] args)
+      {
+            Scanner scan=new Scanner(System.in);
+            BankAccount b[]=new BankAccount[10];
+           Bank B=new Bank();
+           System.out.print("\n\n   • WELOCOME BANK MANGEMENT SYSTEM •\n\n");
+           int ch,count=0;
+           do{
+               int n,i;
+                System.out.print("\nMenu\n1)Accpet\n2)Deposite amnount\n3)Withdrwal amnount\n4)Display\n5)Find Detalis of Account.."+
+                "\n6)Modiye the account detalis\n7)Delet Account\n8)Transfer money one to another account"+
+                "\n9)Exit..\nEnter your choice: ");
+                ch=scan.nextInt();
+                switch(ch)
+                {
+                     case 1:{
+                       //   BankAccount temp[]=new BankAccount[n+count];
+            System.out.print("Enter Number of Account :");
+            n=scan.nextInt();
+            for( i=count;i<count+n;i++)
+            {
+                  b[i]=new BankAccount();
+                  System.out.print("\nEnter "+(i+1)+" costumer details:\n");
+                  b[i].setData();
+            }
+                          count+=n;
+                     }
+                     break;
+                     case 2:
+                     {
+                          
+                          int find;
+                          boolean found=false;
+                          System.out.print("\nEnter account no to deposite amnount:");
+                          find=scan.nextInt();
+                        
+                          for( i=0;i<count;i++)
+                          {
+                               if(find==b[i].account_no)
+                               {
+                                    b[i].deposite();
+                                    found=true;
+                                    break;
+                               }
+                          }
+                          if(!found)
+                          {
+                               System.out.print("\nNo.account found");
+                          }
+                           
+                          
+                     }
+                        break;  
+                     case 3:
+                     {
+                          
+                          int find;
+                          System.out.print("\nEnter account no: to withdrwal amnount:");
+                          find=scan.nextInt();
+                          boolean found=false;
+                          for( i=0;i<count;i++)
+                          {
+                               if(find==b[i].account_no)
+                               {
+                                    b[i].withdrwal();
+                                    found=true;
+                                    
+                               }
+                          }
+                          if(!found)
+                          {
+                               System.out.print("\nNo.account found");
+                          }
+                     }
+                       break;   
+                     
+                     case 4:{
+                          
+           // System.out.println("\n"+"Name\tNumber\tTotal\tType");
+            for( i=0;i<count;i++)
+            {
+                 b[i].getData();
+            }
+                }
+                
+                break;
+                case 5:
+                {
+                     int key;
+                     System.out.print("Enter the Account number: ");
+                     key=scan.nextInt();
+                     
+                     int pass;
+                          System.out.print("\nEnter the password to acces the account details:");
+                          pass=scan.nextInt();
+                     if(pass==B.ATM)
+                     {
+                     for( i=0;i<count;i++)
+                     {
+                          if(key==b[i].account_no)
+                          {
+                               b[i].getData();
+                          }
+                     }
+                     }
+                }
+                     break;
+                     case 6:
+                     {
+                          int key;
+                          System.out.print("Enter the Account number: ");
+                          key=scan.nextInt();
+                          for( i=0;i<count;i++)
+                          {
+                               if(key==b[i].account_no)
+                               {
+                                    b[i].setData();
+                                    break;
+                               }
+                          }
+                          
+                          }
+                     System.out.println("\nModifye Account Sucessfully...");
+                    break;
+                     case 7:
+                     {
+                          int key;
+                          System.out.print("Enter the Account number: ");
+                          key=scan.nextInt();
+                          boolean Found=false;
+                          for(i=0;i<count;i++)
+                          {
+                               if(key==b[i].account_no)
+                               {
+                                    Found =true;
+                                    break;
+                               }
+                          }
+                          if(Found)
+                          {
+                               for(int k=i;k<count-1;k++)
+                              {
+                                  b[k]=b[k+1];
+                        
+                               }
+                               count--;
+                          }
+                     }
+                     break;
+                     case 8:
+                     {
+                          int key,trans;
+                          double transfer;
+                          System.out.print("Enter the Account number: ");
+                          key=scan.nextInt();
+                          System.out.print("Enter the Account number where to transfer it :");
+                          trans=scan.nextInt();
+                          boolean foundFrom = false, foundTo = false;
+                           BankAccount source = null, destination = null;
+                          for( i=0;i<count;i++)
+                          {
+                               if(key==b[i].account_no)
+                               {
+                                   source=b[i];
+                                    foundFrom = true;
+                               }
+                               if(trans==b[i].account_no)
+                               {
+                                   destination=b[i];
+                                    foundTo = true;
+                               }
+                               if(foundFrom && foundTo)
+                                    break;
+                          }
+                          if(foundFrom && foundTo)
+                          {
+                              System.out.print("Enter the amount transfer it: ₹");
+                                transfer=scan.nextDouble();
+                               source.transFer(destination,transfer);
+                          }
+                          else if(!foundFrom)
+                          {
+                               System.out.print("\nSource account not found!..");
+                          }
+                          if(!foundTo)
+                          {
+                               System.out.print("\ndestination account not found!..");
+                          }
+                     }
+           }
+                
+           }while(ch!=9);
+      }
